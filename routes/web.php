@@ -133,4 +133,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings/grades-restore', [GradeController::class, 'restoreIndex'])->name('settings.grades.restore');
     Route::get('/settings/teachers-restore', [TeacherController::class, 'restoreIndex'])->name('settings.teachers.restore');
     Route::get('/settings/students-restore', [StudentController::class, 'restoreIndex'])->name('settings.students.restore');
+    Route::get('/test', function () {
+    return 'UI OK';
+});
 });
