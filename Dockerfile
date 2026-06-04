@@ -26,6 +26,8 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 COPY --from=node /app/public/build /var/www/html/public/build
 
-RUN chmod -R 775 storage bootstrap/cache
+RUN chmod -R 777 storage bootstrap/cache
+RUN mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache
+RUN php artisan optimize:clear
 
 CMD ["sh", "-c", "php -S 0.0.0.0:${PORT} -t public"]
