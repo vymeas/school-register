@@ -5,7 +5,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     curl \
     libzip-dev \
-    zip
+    zip \
+    nodejs \
+    npm
 
 RUN docker-php-ext-install pdo pdo_mysql zip
 
@@ -15,13 +17,22 @@ WORKDIR /var/www/html
 
 COPY . .
 
+RUN mkdir -p storage/framework/cache
+RUN mkdir -p storage/framework/sessions
+RUN mkdir -p storage/framework/views
+RUN mkdir -p storage/logs
 RUN mkdir -p bootstrap/cache
-RUN chmod -R 775 storage bootstrap/cache
+
+RUN chmod -R 775 storage
+RUN chmod -R 775 bootstrap/cache
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN composer install --no-dev --optimize-autoloader
 
+RUN npm install
+RUN npm run build
+
 EXPOSE 8080
 
-CMD sh -c "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
+CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
