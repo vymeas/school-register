@@ -8,4 +8,5 @@ vendor
 .env
 .env.*
 
-storage/logs
+storage
+bootstrap/cache

@@ -20,5 +20,17 @@ class UserSeeder extends Seeder
                 'phone' => '012345678',
             ]
         );
+
+        User::updateOrCreate(
+            ['username' => 'admin'],
+            [
+                'password' => 'admin',
+                'full_name' => 'Admin User',
+                'role' => 'admin',
+                'status' => 'active',
+                'email' => 'admin2@school.com',
+                'phone' => '0987654321',
+            ]
+        );
     }
 }
