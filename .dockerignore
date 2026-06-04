@@ -1,9 +1,6 @@
 .git
 .github
 .vscode
-
 node_modules
-vendor
-
 .env
 .env.*
